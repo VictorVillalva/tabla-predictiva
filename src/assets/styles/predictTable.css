@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+/*Configuracion general*/
+body{
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    background-color: rgba(15,15,15,0.95);
+}
+h1,p,span,h2{
+    color: white;
+}
+/*Configuracion de la seccion del header*/
+header{
+    width: 100vw;
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+}
+.section-header{
+    align-self: center;
+}
+h1{
+    font-size: 10vh;
+    line-height: 3vh;
+}
+p{
+    font-size: 2.5vh;
+    text-align: center;
+}
+/*Configuracion de la seccion 1*/
+.section1{
+    width: 100vw;
+    height: 55vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/*Configuracion de la parte de informacion*/
+.datos{
+    width: 80vw;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Data{
+    width: 30vw;
+    height: 2.5vw;
+    padding-left: .8vw;
+
+}
+button{
+    margin-left: 1rem;
+    background:#1AAB8A;
+    color:#fff;
+    border:none;
+    position:relative;
+    height:2.5rem;
+    font-size:1em;
+    padding:0 2em;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+}
+button:hover{
+    background:#fff;
+    color:#1AAB8A;
+}
+button:before,button:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #1AAB8A;
+    transition:400ms ease all;
+}
+button:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+}
+button:hover:before,button:hover:after{
+    width:100%;
+    transition:800ms ease all;
+}
+.limpiar{
+    margin-left: 1rem;
+    background:#bb0000;
+    color:#fff;
+    border:none;
+    position:relative;
+    height:2.5rem;
+    font-size:1em;
+    padding:0 2em;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+}
+.limpiar:hover{
+    background:#fff;
+    color:#bb0000;
+}
+.limpiar:before,.limpiar:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #bb0000;
+    transition:400ms ease all;
+}
+.limpiar:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+}
+.limpiar:hover:before,.limpiar:hover:after{
+    width:100%;
+    transition:800ms ease all;
+}
+/*Configuracion de la parte de mostrar*/
+.view-data{
+    background-color: white;
+    width: 20vw;
+    height: 30vw;
+    border-radius: 3px;
+    padding: 1vw;
+    margin-top: 3vw;
+    overflow-y: scroll;
+}
