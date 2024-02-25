@@ -36,7 +36,6 @@ function validateSintax(string) {
             return; // Terminar la ejecución ya que la cadena es válida
         } else if (isNoTerminal(x)) {
             console.log(x, "es un no terminal");
-
             const production = getProduction(x);
             if (production) {
 
@@ -59,6 +58,10 @@ function validateSintax(string) {
                 });
                 return; // Terminar la ejecución ya que no hay producción
             }
+
+
+
+
         } else {
             console.log(x, "es un terminal");
             let y = stringStack.pop();
@@ -69,16 +72,6 @@ function validateSintax(string) {
             } else {
                 console.log("Sintaxis inválida entre pila y cadena");
                 console.log("La pila queda así:", stack.toString());
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Cadena Invalida, entre pila y cadena!',
-                    background: "#2c2c2c",
-                    color: "#fff",
-                    confirmButtonColor: "#850287",
-                    iconColor: "#850287"
-
-                });
                 return; // Terminar la ejecución ya que la cadena es inválida
             }
         }
