@@ -1,90 +1,110 @@
-// import Swal from 'sweetalert2'
-
-//Generar gramatica de la actividad
-const gramatica = {
-    "S" : ["A", "B", "V"],
-    "A" : ["automata"],
-    "V" : ["fin"],
-    "B" : ["AL", "F"],
-    "AL" : ["G", ":" , "SM", "RA", ";"],
-    "G" : ["alfabeto"],
-    "SM" : ["LeDi"],
-    "RA" : [",", "SM", "RA", "ε"],
-    "F" : ["C", ":", "D", ";"],
-    "C" : ["aceptacion"],
-    "D" : ["digito"]
-}
+import Swal from 'sweetalert2';
 
 //Generar tabla predictiva de actividad
-const tablaPredictiva = {
-    "SNT": [",",  "automata", "fin", "alfabeto", "aceptacion", "LeDi", "digito", ":", ";"],
-    "S":   [null, "S",         null,  null,       null,         null,    null,    null, null],
-    "A":   [null, "A",         null,  null,       null,         null,    null,    null, null],
-    "V":   [null, null,        "V",   null,       null,         null,    null,    null, null],
-    "B":   [null, null,        null,  "B",        null,         null,    null,    null, null],
-    "AL":  [null, null,        null,  "AL",       null,         null,    null,    null, null],
-    "G":   [null, null,        null,  "G",        null,         null,    null,    null, null],
-    "SM":  [null, null,        null,  null,       null,         "SM",    null,    null, null],
-    "RA":  ["RA", null,        null,  null,       null,         null,    null,    null, "RA"],
-    "F":   [null, null,        null,  null,       "F",          null,    null,    null, null],
-    "C":   [null, null,        null,  null,       "C",          null,    null,    null, null],
-    "D":   [null, null,        null,  null,       null,         null,    "D",     null, null],
+const tabla = {
+    "SNT": [",",  "automata", "fin", "alfabeto", "aceptacion", "LetraODigito", "Digito", ":", ";"],
+    "S":   [null, ["A","B","V"],null,  null,       null,         null,    null,    null, null],
+    "A":   [null, ["automata"], null,  null,       null,         null,    null,    null, null],
+    "V":   [null, null,        ["fin"],null,       null,         null,    null,    null, null],
+    "B":   [null, null,        null,  ["AL","F"],  null,         null,    null,    null, null],
+    "AL":  [null, null,        null,  ["G",":","SM","RA",";"],null,null,  null,    null, null],
+    "G":   [null, null,        null,  ["alfabeto"],null,         null,    null,    null, null],
+    "SM":  [null, null,        null,   null,       null,         ["LetraODigito"],["LetraODigito"],    null, null],
+    "RA":  [[",","SM","RA"], null,null,null,       null,         null,    null,    null, [",","SM","RA"]],
+    "F":   [null, null,        null,  null,       ["C",":","D",";"],null, null,    null, null],
+    "C":   [null, null,        null,  null,       ["aceptacion"],null,    null,    null, null],
+    "D":   [null, null,        null,  null,       null,          null,    ["Digito"],null, null],
 }
 
 
-function NoTerminal(s) {
-     const terminales = ["S","A","V","B","AL","G","SM","RA","F","C","D"];
-     return !(terminales.indexOF(s) === -1);
+function NoTerminal(s){
+    const terminales = ["S","A","V","B","AL","G","SM","RA","F","C","D"];
+    return !(terminales.indexOf(s) === -1);
 }
 
-function obtenerDatos(data){
-    let datos = tablaPredictiva?.[data]?.filter(item => item !== null)[0];
-    return datos && gramatica?.[datos];
+function getData(data){
+    let datos
+    if(tabla.hasOwnProperty(data)){
+        datos = tabla[data].filter(item => item !== null)[0];
+        return datos
+    }
 }
 
 export function validarSintaxis(sintaxi){
-    let stack = ["$","S"];
-    let sintaxiStack = sintaxi.match(/([a-zA-Z_]\w*|\S)/g).toString().split(",");
-    console.log("* Esta es la pila -> ", stack.toString());
-    console.log("* Esta es la cadena a evaluar -> ", sintaxiStack);
+    let stack = ["$", "S"];
+    let stringStack = sintaxi.match(/([a-zA-Z_]\w*|\S)/g).toString().split(",");
+    console.log("* La pila es:", stack.toString());
+    console.log("* La cadena a evaluar es:", stringStack);
+    console.log("------------------------------------")
 
+    //------------------Logica--------------------
     while(stack.length > 0){
-        let a = stack.pop();
-        console.log("Elemento tope de la pila es : ", a)
-        if(a === "$"){
-            console.log("Cadena finalizada - Cadena Valida");
-            //TODO Agregar SweetAlert
-            return;
-        } else if (NoTerminal(a)){
-            console.log(a, " - No terminal");
-            const datos = obtenerDatos(a);
-            if(datos){
-                for(let i = 0; i <= datos.length - 1; i++){
-                    stack.push(datos[i]);
+        let x = stack.pop();
+        console.log(" 1 Elemento tope de la pila es: ", x);
+        console.log("------------------------------------")
+
+        if(x === "$"){
+            console.log("Cadena finalizado - Cadena valida");
+            Swal.fire({
+                icon: "success",
+                title: "Congrats...",
+                footer: "Cadena finalizada en estado de aceptación",
+                text: `Cadena ${sintaxi} Valida`,
+                background: "#131313",
+                color: "#fff",
+                confirmButtonColor: "#850287",
+                iconColor: "#850287"
+            });
+        } else if (NoTerminal(x)) {
+            console.log(x, " es un no terminal");
+            const producto = getData(x);
+            if(producto){
+                for (let i = 0; i <= producto.length-1; i++) {
+                    console.log("p:",producto[i])
+                    stack.push(producto[i])
                 }
-                console.log("La nueva pila es -> ", stack);
-            }else{
-                console.log("No se pudo encontrar alguna producción")
-                console.log("La pila quedo -> ", stack.toString());
-                //TODO Agregar SweetAlert de error de cadena
-                return;
+                console.log("La nueva pila es: ", stack.toString());
+            } else {
+                console.log("No se pudo encontrar produccion");
+                console.log("La pila quedo asi : ", stack.toString());
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Cadena Invalida, elementos faltantes!',
+                    background: "#2c2c2c",
+                    color: "#fff",
+                    confirmButtonColor: "#850287",
+                    iconColor: "#850287"
+                })
+                alert("ACABO EJECUCIÓN YA QUE NO HAY PRODUCCION ---- 1")
+                return; //Para terminar la ejecución ya que no hay producción
             }
         } else {
-            console.log(a, " - es terminal");
-            let b = sintaxiStack.pop()
-            console.log("Elemento tope de cadena es : ", b);
+            console.log (x , " es un terminal");
+            let y = stringStack.pop();
+            console.log(" 2 El elemento tope de la cadena es : ", y);
 
-            if(a===b || (a === "LeDi" && a.regex((/^[a-zA-Z][0-9]/)).test(b)) ){
-                console.log("Sintaxis valida entre pila y cadena")
+            // Validacion a..z y 0..9
+            if ( x === y || (x === "Letra" && /^[a-z]+$/.test(y)) || (x === "Digito" && /^[0-9]+$/.test(y)) || x === "LetraODigito" && /^[a-z0-9]+$/.test(y)) {
+                console.log("Sintaxis valida entre pila y cadena ------ Paso el a...z y 0..9");
             } else {
-                console.log("Sintaxis invalida entre pila y cadena");
-                console.log("La pila queda -> ", stack.toString());
-                //TODO Agregar SweetAlert de error de comparación
+                console.log("Sintaxis inválida entre pila y cadena");
+                console.log("La pila queda así:", stack.toString());
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    background: "#2c2c2c",
+                    color: "#fff",
+                    confirmButtonColor: "#850287",
+                    iconColor: "#850287"
+
+                })
                 return;
             }
         }
 
     }
 }
+
 
 

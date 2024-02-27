@@ -1,46 +1,50 @@
 import '../assets/styles/predictTable.css'
 import {validarSintaxis} from "../logic/topDownApproach.js";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 export default function PredictTable() {
-    const [contenido, setContenido] = useState("");
-    const [infoStack, setInfoStack] = useState([]);
-
+    const [cadena, setCadena] = useState("")
+    const [stackInfo, setStackInfo] = useState([])
 
     useEffect(() => {
-        const originalConsoleLog = console.log;
+        const consoleLogsJS = console.log
         console.log = (...args) => {
-            originalConsoleLog(...args);
-            setInfoStack(prevLogs => [...prevLogs, args.join(' ')]);
+            consoleLogsJS(...args)
+            setStackInfo(prevLogs => [...prevLogs, args.join(' ')]);
         };
         return () => {
-            console.log = originalConsoleLog;
+             console.log = consoleLogsJS;
         };
     }, []);
 
-    const handlerCodeText=(e) =>{
-        setContenido(e.target.value)
+    const handlerCadena = (event) => {
+        setCadena(event.target.value)
     }
-    const handleCheck = (e) =>{
-        e.preventDefault();
-        setInfoStack([])
-        validarSintaxis(contenido)
+
+    const handlerValidar = (event) => {
+        event.preventDefault();
+        setStackInfo([])
+        validarSintaxis(cadena)
     }
+
     return (
         <>
             <header>
                 <section className="section-header">
-                    <h1>Tabla Predictiva</h1>
-                    <p>Ingrese los datos necesarios para iniciar la validación</p>
+                    <h1 className="title">Tabla Predictiva</h1>
+                    <p className="subtitle">Ingrese los datos necesarios para iniciar la validación</p>
                 </section>
             </header>
             <section className="section1">
-                <div className="datos">
-                    <textarea className="Data"/>
-                    <button className="analizar">Analizar</button>
-                    <button className="limpiar">Analizar</button>
+                <div className="sintaxis">
+                    <input type="text" className="cadena" id="inputCadena" onChange={handlerCadena}/>
+                    <button className="analizar" id="btnValidar" onClick={handlerValidar}>Analizar</button>
+                    <button className="limpiar">Limpiar</button>
                 </div>
-                <div className="view-data"></div>
+                <div className="regreso-pila">
+                    <span className="txt-analisis">| Analisis</span>
+                    <textarea className="resultado-pila" value={stackInfo.join('\n')}></textarea>
+                </div>
             </section>
         </>
     )
