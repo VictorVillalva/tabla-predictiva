@@ -27,6 +27,11 @@ export default function PredictTable() {
         validarSintaxis(cadena)
     }
 
+    const limpiarCandena = () =>{
+        setCadena('');
+        setStackInfo([])
+    }
+
     return (
         <>
             <header>
@@ -37,9 +42,10 @@ export default function PredictTable() {
             </header>
             <section className="section1">
                 <div className="sintaxis">
-                    <input type="text" className="cadena" id="inputCadena" onChange={handlerCadena}/>
+                    <input type="text" className="cadena" id="inputCadena" onChange={handlerCadena} value={cadena}
+                           placeholder='automata alfabeto : gato , perro ; aceptacion : 9 ; fin'/>
                     <button className="analizar" id="btnValidar" onClick={handlerValidar}>Analizar</button>
-                    <button className="limpiar">Limpiar</button>
+                    <button className="limpiar" onClick={limpiarCandena}>Limpiar</button>
                 </div>
                 <div className="regreso-pila">
                     <span className="txt-analisis">| Analisis</span>

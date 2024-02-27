@@ -35,9 +35,10 @@ header{
     align-items: center;
 }
 .cadena{
-    width: 30vw;
+    width: 35vw;
     height: 3vw;
     padding-left: .8vw;
+    font-size: 1vw;
 }
 /* Configuracion de los botones */
 .analizar{

@@ -45,9 +45,9 @@ export function validarSintaxis(sintaxi){
             console.log("Cadena finalizada - Cadena valida");
             Swal.fire({
                 icon: "success",
-                title: "Congrats...",
+                title: "Validación Exitosa",
                 footer: "Cadena finalizada en estado de aceptación",
-                text: `Cadena ${sintaxi} Valida`,
+                text: `Cadena : ${sintaxi} | Valida`,
                 background: "#131313",
                 color: "#fff",
                 confirmButtonColor: "#1a9a77",
