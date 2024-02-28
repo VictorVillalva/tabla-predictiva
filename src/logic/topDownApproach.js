@@ -23,21 +23,22 @@ function NoTerminal(s){
 }
 
 // Ayuda a obtener los datos de la tabla declarada y valir que cuenta con la propiedad usando el metodo hasOwnProperty
-function getData(data){
+function obtenerProduccion(noTerminal){
     let datos
-    if(tabla.hasOwnProperty(data)){
-        datos = tabla[data].filter(item => item !== null)[0];
+    if(tabla.hasOwnProperty(noTerminal)){
+        datos = tabla[noTerminal].filter(item => item !== null)[0];
         return datos
     }
 }
+
 
 
 export function validarSintaxis(sintaxi){
 
     let pila = ["$", "S"];
     let sintaxiString = sintaxi.split(" ")
-    console.log("* Pila:", pila.toString());
-    console.log("* Cadena a evaluar es:", sintaxiString);
+    // console.log("* Pila:", pila.toString());
+    // console.log("* Cadena a evaluar es:", sintaxiString);
 
 
     while (pila.length > 0) {
@@ -62,17 +63,17 @@ export function validarSintaxis(sintaxi){
         } else if (NoTerminal(x)) {
             // X es un No Terminal
             console.log(x, " -- es un no terminal");
-            const production = getData(x);
 
-            if (production) {
+            const produccion = obtenerProduccion(x);
+            if (produccion) {
 
-                for (let i=0; i<=production.length-1;i++){
-                    pila.push(production[i])
+                for (let i=0; i<=produccion.length-1;i++){
+                    pila.push(produccion[i])
                 }
                 console.log("La nueva pila es:", pila.toString());
             } else {
                 console.log("No se pudo encontrar producción");
-                console.log("La pila quedó así:", pila.toString());
+                console.log("La pila quedó así: ", pila.toString());
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -86,12 +87,11 @@ export function validarSintaxis(sintaxi){
                 return; // Terminar la ejecución ya que no hay producción
             }
         } else {
-
-            // Se inicia la verificación entre la pila y la cadena de entrada
             console.log(x, "es un terminal");
             let y = sintaxiString.pop();
             console.log("El elemento tope de la cadena es: ", y);
 
+            //Verificacion de sintaxis entre un simbolo de la pila y el elemento superior de la cadena
             if ( x === y ||
                 (x === "letraOnumero" && /^[a-z0-9]+$/.test(y)) ||
                 (x==="numero" &&/^[0-9]$/.test(y))) {
