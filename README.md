@@ -39,7 +39,7 @@ if ( x === y
 Aquí, si el valor de x es igual a "letraOnumero" y el valor de y contiene solamente letras minúsculas o números, entonces se considera una sintaxis válida.
 
 ```javascript 
-(x==="numero" &&/^[0-9]$/.test(y)
+(x === "numero" &&/^[0-9]$/.test(y)
 ``` 
 Si el valor de x es igual a "numero" y el valor de y es un solo dígito, entonces también es considerado válido.
 
