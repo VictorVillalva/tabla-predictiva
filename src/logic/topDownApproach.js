@@ -31,8 +31,6 @@ function obtenerProduccion(noTerminal){
     }
 }
 
-
-
 export function validarSintaxis(sintaxi){
 
     let pila = ["$", "S"];

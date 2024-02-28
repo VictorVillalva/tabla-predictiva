@@ -1,6 +1,6 @@
 # Tabla Predictiva
 
-Desarrollar de programa que simula funciones de un analizador sintáctico implementando el método descendente: Predictivo No Recursivo.
+Desarrollar de programa que simula funciones de un analizador sintáctico implementando el [Metodo Descendente](https://www.uco.es/users/ma1fegan/2015-2016/pl-grado/temas/Tema-4.pdf): Predictivo No Recursivo.
 
 
 
@@ -48,6 +48,16 @@ Si el valor de x es igual a "numero" y el valor de y es un solo dígito, entonce
 [1,2,3].pop(); //? [1,2] * 
 [1,2,3].push(4); //? [1,2,3,4] * 
 ```
+
+## Cadena de pruebas
+1. automata alfabeto : gato , perro ; aceptacion : 9 ; fin
+2. automata alfabeto : gato01 , perro02 ; aceptacion : 1 ; fin
+3. automata alfabeto : 10hola , 39nada ; aceptacion : 1 ; fin
+4. automata alfabeto : 10 , 39 ; aceptacion : 1 ; fin
+5. automata alfabeto : ga2242to , pe2342rro342 ; aceptacion : 9 ; fin
+6. automata alfabeto : h , h , h , h , h ; aceptacion : 9 ; fin
+7. automata alfabeto : 1 , 2 , 3 , 4 , 5 ; aceptacion : 9 ; fin
+8. automata alfabeto : ga2242to , ga2242to , ga2242to , ga2242to , ga2242to , ga2242to , ga2242to ; aceptacion : 9 ; fin
 
 
 
