@@ -42,7 +42,7 @@ export default function PredictTable() {
             <section className="section1">
                 <div className="sintaxis">
                     <input type="text" className="cadena" id="inputCadena" onChange={handlerCadena} value={cadena}
-                           placeholder='automata alfabeto : gato , perro ; aceptacion : 9 ; fin'/>
+                           placeholder='automata alfabeto : (a...z/0...9) , (a...z/0...9) ; aceptacion : (0...9) ; fin'/>
                     <button className="analizar" id="btnValidar" onClick={handlerValidar}>Analizar</button>
                     <button className="limpiar" onClick={limpiarCandena}>Limpiar</button>
                 </div>

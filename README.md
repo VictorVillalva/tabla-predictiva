@@ -24,7 +24,7 @@ Es un método de los objetos en JavaScript que devuelve ` true`  si el objeto ti
 ### Verificacion de sintaxis entre un simbolo de la pila y el elemento superior de la cadena
 ```javascript
 if ( x === y 
-    || (x === "letraOnumero" && /^[a-z0-9]+$/.test(y)) 
+    || (x === "letraOnumero" && /^[a-z0-9]$/.test(y)) 
     || (x === "numero" &&/^[0-9]$/.test(y))) {
     
         console.log("Sintaxis válida entre pila y cadena");
@@ -34,9 +34,9 @@ if ( x === y
 ```
 
 ```javascript 
-(x === "letraOnumero" && /^[a-z0-9]+$/.test(y))
+(x === "letraOnumero" && /^[a-z0-9]$/.test(y))
 ``` 
-Aquí, si el valor de x es igual a "letraOnumero" y el valor de y contiene solamente letras minúsculas o números, entonces se considera una sintaxis válida.
+Aquí, si el valor de x es igual a "letraOnumero" y el valor de y contiene solamente letras minúsculas o números, entonces se considera una sintaxis válida. Si llevara el signo (+) ```/^[a-z0-9]$+/``` puede aceotar mas de dos letras o dos numeros
 
 ```javascript 
 (x === "numero" &&/^[0-9]$/.test(y)
@@ -50,14 +50,9 @@ Si el valor de x es igual a "numero" y el valor de y es un solo dígito, entonce
 ```
 
 ## Cadena de pruebas
-1. automata alfabeto : gato , perro ; aceptacion : 9 ; fin
-2. automata alfabeto : gato01 , perro02 ; aceptacion : 1 ; fin
-3. automata alfabeto : 10hola , 39nada ; aceptacion : 1 ; fin
-4. automata alfabeto : 10 , 39 ; aceptacion : 1 ; fin
-5. automata alfabeto : ga2242to , pe2342rro342 ; aceptacion : 9 ; fin
-6. automata alfabeto : h , h , h , h , h ; aceptacion : 9 ; fin
-7. automata alfabeto : 1 , 2 , 3 , 4 , 5 ; aceptacion : 9 ; fin
-8. automata alfabeto : ga2242to , ga2242to , ga2242to , ga2242to , ga2242to , ga2242to , ga2242to ; aceptacion : 9 ; fin
-
+1. automata alfabeto : g , p ; aceptacion : 9 ; fin
+2. automata alfabeto : 1 , 2 ; aceptacion : 1 ; fin
+3. automata alfabeto : h , h , h , h , h ; aceptacion : 9 ; fin
+4. automata alfabeto : 1 , 2 , 3 , 4 , 5 ; aceptacion : 9 ; fin
 
 
