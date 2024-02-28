@@ -25,7 +25,7 @@ Es un método de los objetos en JavaScript que devuelve ` true`  si el objeto ti
 ```javascript
 if ( x === y 
     || (x === "letraOnumero" && /^[a-z0-9]+$/.test(y)) 
-    || (x==="numero" &&/^[0-9]$/.test(y))) {
+    || (x === "numero" &&/^[0-9]$/.test(y))) {
     
         console.log("Sintaxis válida entre pila y cadena");
         console.log("Tamaño pila: ",pila.length)

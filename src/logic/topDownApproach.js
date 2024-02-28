@@ -94,7 +94,7 @@ export function validarSintaxis(sintaxi){
             //Verificacion de sintaxis entre un simbolo de la pila y el elemento superior de la cadena
             if ( x === y ||
                 (x === "letraOnumero" && /^[a-z0-9]+$/.test(y)) ||
-                (x==="numero" &&/^[0-9]$/.test(y))) {
+                (x === "numero" &&/^[0-9]$/.test(y))) {
 
                 console.log("Sintaxis válida entre pila y cadena");
                 console.log("Tamaño pila: ",pila.length)
