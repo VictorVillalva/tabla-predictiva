@@ -10,7 +10,7 @@ const tabla = {
     "AL":[null, null, null, ["G",":","SM","RA",";"], null, null, null, null, null],
     "G":[null, null, null, ["alfabeto"], null, null, null, null, null],
     "SM":[null, null, null, null, null, ["letraOnumero"], null, null, null],
-    "RA":[[",","SM"], null, null, null, null, null, null, null,["vacio"]],
+    "RA":[[",","SM"], null, null, null, null, null, null, null,[",","SM"]],
     "F":[null, null, null, null, ["C",":","D",";"], null, null, null, null],
     "C":[null, null, null, null, ["aceptacion"], null, null, null, null],
     "D":[null, null, null, null, null, null, ["numero"], null, null],
@@ -36,9 +36,10 @@ function obtenerProduccion(noTerminal){
 export function validarSintaxis(sintaxi){
 
     let pila = ["$", "S"];
-    let sintaxiString = sintaxi.split(" ")
+    let stringPila = sintaxi.split(" ")
+
     // console.log("* Pila:", pila.toString());
-    // console.log("* Cadena a evaluar es:", sintaxiString);
+    // console.log("* Cadena a evaluar es:", stringPila);
 
 
     while (pila.length > 0) {
@@ -70,7 +71,9 @@ export function validarSintaxis(sintaxi){
                 for (let i=0; i<=produccion.length-1;i++){
                     pila.push(produccion[i])
                 }
+
                 console.log("La nueva pila es:", pila.toString());
+
             } else {
                 console.log("No se pudo encontrar producción");
                 console.log("La pila quedó así: ", pila.toString());
@@ -88,7 +91,7 @@ export function validarSintaxis(sintaxi){
             }
         } else {
             console.log(x, "es un terminal");
-            let y = sintaxiString.pop();
+            let y = stringPila.pop();
             console.log("El elemento tope de la cadena es: ", y);
 
             //Verificacion de sintaxis entre un simbolo de la pila y el elemento superior de la cadena
@@ -98,7 +101,14 @@ export function validarSintaxis(sintaxi){
 
                 console.log("Sintaxis válida entre pila y cadena");
                 console.log("Tamaño pila: ",pila.length)
-                console.log("Tamaño de Sintaxi: ", sintaxiString.length)
+                console.log("Tamaño de Sintaxi: ", stringPila.length)
+
+                if(pila.length === 4 && stringPila.length > 3 && pila[pila.length-1] === ":"){
+                    console.error("Agregando")
+                    pila.push("SM")
+                    pila.push(",")
+
+                }
 
             } else {
                 console.log("Sintaxis inválida entre pila y cadena");
