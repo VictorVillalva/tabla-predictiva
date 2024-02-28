@@ -10,18 +10,19 @@ const tabla = {
     "AL":[null, null, null, ["G",":","SM","RA",";"], null, null, null, null, null],
     "G":[null, null, null, ["alfabeto"], null, null, null, null, null],
     "SM":[null, null, null, null, null, ["letraOnumero"], null, null, null],
-    "RA":[[",","SM"], null, null, null, null, null, null, null, [",","SM"]],
+    "RA":[[",","SM"], null, null, null, null, null, null, null,["vacio"]],
     "F":[null, null, null, null, ["C",":","D",";"], null, null, null, null],
     "C":[null, null, null, null, ["aceptacion"], null, null, null, null],
     "D":[null, null, null, null, null, null, ["numero"], null, null],
 }
 
-
+// Comprobacion si un símbolo es  no terminal en función de los símbolos definidos en el array
 function NoTerminal(s){
     const terminales = ["S","A","V","B","AL","G","SM","RA","F","C","D"];
     return !(terminales.indexOf(s) === -1);
 }
 
+// Ayuda a obtener los datos de la tabla declarada y valir que cuenta con la propiedad usando el metodo hasOwnProperty
 function getData(data){
     let datos
     if(tabla.hasOwnProperty(data)){
@@ -30,15 +31,17 @@ function getData(data){
     }
 }
 
+
 export function validarSintaxis(sintaxi){
-    let stack = ["$", "S"];
-    //let sintaxiString = string.match(/([a-zA-Z_]\w*|\S)/g).toString().split(",");
+
+    let pila = ["$", "S"];
     let sintaxiString = sintaxi.split(" ")
-    console.log("* Pila:", stack.toString());
+    console.log("* Pila:", pila.toString());
     console.log("* Cadena a evaluar es:", sintaxiString);
 
-    while (stack.length > 0) {
-        let x = stack.pop();
+
+    while (pila.length > 0) {
+        let x = pila.pop();
         console.log("El elemento de la pila tope es:", x);
 
         if (x === "$") {
@@ -47,7 +50,7 @@ export function validarSintaxis(sintaxi){
                 icon: "success",
                 title: "Validación Exitosa",
                 footer: "Cadena finalizada en estado de aceptación",
-                text: `Cadena : ${sintaxi} | Valida`,
+                text: `Cadena : ${sintaxi} `,
                 background: "#131313",
                 color: "#fff",
                 confirmButtonColor: "#1a9a77",
@@ -55,19 +58,21 @@ export function validarSintaxis(sintaxi){
             });
 
             return; // Terminar la ejecución ya que la cadena es válida
-        } else if (NoTerminal(x)) {
-            console.log(x, " -- es un no terminal");
 
+        } else if (NoTerminal(x)) {
+            // X es un No Terminal
+            console.log(x, " -- es un no terminal");
             const production = getData(x);
+
             if (production) {
 
                 for (let i=0; i<=production.length-1;i++){
-                    stack.push(production[i])
+                    pila.push(production[i])
                 }
-                console.log("La nueva pila es:", stack.toString());
+                console.log("La nueva pila es:", pila.toString());
             } else {
                 console.log("No se pudo encontrar producción");
-                console.log("La pila quedó así:", stack.toString());
+                console.log("La pila quedó así:", pila.toString());
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -81,19 +86,23 @@ export function validarSintaxis(sintaxi){
                 return; // Terminar la ejecución ya que no hay producción
             }
         } else {
+
+            // Se inicia la verificación entre la pila y la cadena de entrada
             console.log(x, "es un terminal");
             let y = sintaxiString.pop();
-            console.log("El elemento tope de la cadena es:", y);
+            console.log("El elemento tope de la cadena es: ", y);
 
+            if ( x === y ||
+                (x === "letraOnumero" && /^[a-z0-9]+$/.test(y)) ||
+                (x==="numero" &&/^[0-9]$/.test(y))) {
 
-            if (x === y || (x === "letraOnumero" && /^[a-z0-9]+$/.test(y)) || (x==="numero" &&/^[0-9]$/.test(y) )) {
                 console.log("Sintaxis válida entre pila y cadena");
-                console.log("sl: ",stack.length)
-                console.log("ssl: ", sintaxiString.length)
+                console.log("Tamaño pila: ",pila.length)
+                console.log("Tamaño de Sintaxi: ", sintaxiString.length)
 
             } else {
                 console.log("Sintaxis inválida entre pila y cadena");
-                console.log("La pila queda así:", stack.toString());
+                console.log("La pila queda así:", pila.toString());
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',

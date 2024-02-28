@@ -28,7 +28,6 @@ export default function PredictTable() {
     }
 
     const limpiarCandena = () =>{
-        setCadena('');
         setStackInfo([])
     }
 
