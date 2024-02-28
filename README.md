@@ -5,7 +5,7 @@ Desarrollar de programa que simula funciones de un analizador sintáctico implem
 
 
 ## Explicaciones lineas de codigo
-
+### Obtener los datos de la tabla y validar que cuenta con la propiedad
 ```javascript
 function getData(data){
     let datos
@@ -21,6 +21,7 @@ hasOwnProperty()
 ``` 
 Es un método de los objetos en JavaScript que devuelve ` true`  si el objeto tiene una propiedad con el nombre especificado.
 
+### Verificacion de sintaxis entre un simbolo de la pila y el elemento superior de la cadena
 ```javascript
 if ( x === y 
     || (x === "letraOnumero" && /^[a-z0-9]+$/.test(y)) 
